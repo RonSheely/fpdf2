@@ -40,6 +40,7 @@ el.replaceWith(d);
 <p>The contents of this module are internal to fpdf2, and not part of the public API.
 They may change at any time without prior warning or any deprecation period,
 in non-backward-compatible ways.</p>
+<p>Usage documentation at: <a href="https://py-pdf.github.io/fpdf2/HTML.html">https://py-pdf.github.io/fpdf2/HTML.html</a></p>
 </section>
 <section>
 </section>
@@ -55,7 +56,7 @@ in non-backward-compatible ways.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L281-L290" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L288-L297" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def color_as_decimal(color=&#34;#000000&#34;):
     &#34;&#34;&#34;
@@ -78,7 +79,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1245-L1256" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1254-L1265" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def ol_prefix(ol_type, index):
     if ol_type == &#34;1&#34;:
@@ -102,7 +103,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L293-L303" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L300-L310" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def parse_css_style(style_attr):
     &#34;&#34;&#34;Parse `style=&#34;...&#34;` HTML attributes, and return a dict of key-value&#34;&#34;&#34;
@@ -119,19 +120,19 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
 <div class="desc"><p>Parse <code>style="..."</code> HTML attributes, and return a dict of key-value</p></div>
 </dd>
 <dt id="fpdf.html.ul_prefix"><code class="name flex">
-<span>def <span class="ident">ul_prefix</span></span>(<span>ul_type)</span>
+<span>def <span class="ident">ul_prefix</span></span>(<span>ul_type, is_ttf_font)</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1235-L1242" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1244-L1251" class="git-link" target="_blank">Browse git</a>
 </summary>
-<pre><code class="python">def ul_prefix(ul_type):
-    if ul_type == &#34;circle&#34;:
-        return DEGREE_WIN1252
+<pre><code class="python">def ul_prefix(ul_type, is_ttf_font):
     if ul_type == &#34;disc&#34;:
-        return BULLET_WIN1252
+        return BULLET_UNICODE if is_ttf_font else MESSAGE_WAITING_WIN1252
+    if ul_type == &#34;circle&#34;:
+        return RING_OPERATOR_UNICODE if is_ttf_font else DEGREE_SIGN_WIN1252
     if len(ul_type) == 1:
         return ul_type
     raise NotImplementedError(f&#34;Unsupported type: {ul_type}&#34;)</code></pre>
@@ -145,13 +146,13 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
 <dl>
 <dt id="fpdf.html.HTML2FPDF"><code class="flex name class">
 <span>class <span class="ident">HTML2FPDF</span></span>
-<span>(</span><span>pdf,<br>image_map=None,<br>li_tag_indent=None,<br>dd_tag_indent=None,<br>table_line_separators=False,<br>ul_bullet_char='\x95',<br>li_prefix_color=(190, 0, 0),<br>heading_sizes=None,<br>pre_code_font=None,<br>warn_on_tags_not_matching=True,<br>tag_indents=None,<br>tag_styles=None,<br>font_family='times',<br>render_title_tag=False)</span>
+<span>(</span><span>pdf,<br>image_map=None,<br>li_tag_indent=None,<br>dd_tag_indent=None,<br>table_line_separators=False,<br>ul_bullet_char='disc',<br>li_prefix_color=(190, 0, 0),<br>heading_sizes=None,<br>pre_code_font=None,<br>warn_on_tags_not_matching=True,<br>tag_indents=None,<br>tag_styles=None,<br>font_family='times',<br>render_title_tag=False)</span>
 </code></dt>
 <dd>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L306-L1213" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L313-L1222" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class HTML2FPDF(HTMLParser):
     &#34;Render basic HTML to FPDF&#34;
@@ -166,7 +167,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
         li_tag_indent=None,
         dd_tag_indent=None,
         table_line_separators=False,
-        ul_bullet_char=BULLET_WIN1252,
+        ul_bullet_char=&#34;disc&#34;,
         li_prefix_color=(190, 0, 0),
         heading_sizes=None,
         pre_code_font=None,
@@ -178,7 +179,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
     ):
         &#34;&#34;&#34;
         Args:
-            pdf (FPDF): an instance of `fpdf.FPDF`
+            pdf (fpdf.fpdf.FPDF): an instance of `FPDF`
             image_map (function): an optional one-argument function that map `&lt;img&gt;` &#34;src&#34; to new image URLs
             li_tag_indent (int): [**DEPRECATED since v2.7.9**]
                 numeric indentation of `&lt;li&gt;` elements - Set `tag_styles` instead
@@ -186,6 +187,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
                 numeric indentation of `&lt;dd&gt;` elements - Set `tag_styles` instead
             table_line_separators (bool): enable horizontal line separators in `&lt;table&gt;`. Defaults to `False`.
             ul_bullet_char (str): bullet character preceding `&lt;li&gt;` items in `&lt;ul&gt;` lists.
+                You can also specify special bullet names like `&#34;circle&#34;` or `&#34;disc&#34;` (the default).
                 Can also be configured using the HTML `type` attribute of `&lt;ul&gt;` tags.
             li_prefix_color (tuple, str, fpdf.drawing.DeviceCMYK, fpdf.drawing.DeviceGray, fpdf.drawing.DeviceRGB): color for bullets
                 or numbers preceding `&lt;li&gt;` tags. This applies to both `&lt;ul&gt;` &amp; `&lt;ol&gt;` lists.
@@ -227,23 +229,25 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
             style=self.font_emphasis.style,
         )
         self.style_stack = []  # list of FontFace
-        self.h = pdf.font_size_pt / pdf.k
         self._page_break_after_paragraph = False
-        self._pre_formatted = False  # preserve whitespace while True.
-        # nothing written yet to &lt;pre&gt;, remove one initial nl:
-        self._pre_started = False
         self.follows_trailing_space = False  # The last write has ended with a space.
         self.follows_heading = False  # We don&#39;t want extra space below a heading.
-        self.href = &#34;&#34;
-        self.align = &#34;&#34;
-        self.indent = 0
-        self.line_height_stack = []
-        self.ol_type = {}  # when inside a &lt;ol&gt; tag, can be &#34;a&#34;, &#34;A&#34;, &#34;i&#34;, &#34;I&#34; or &#34;1&#34;
-        self.bullet = []
+        self.align: Optional[Union[float, Align]] = None
         self.heading_level = None
         self._tags_stack = []
         self._column = self.pdf.text_columns(skip_leading_spaces=True)
         self._paragraph = self._column.paragraph()
+        # &lt;pre&gt;-related properties:
+        self._pre_formatted = False  # preserve whitespace while True.
+        # nothing written yet to &lt;pre&gt;, remove one initial nl:
+        self._pre_started = False
+        # &lt;a&gt;-related properties:
+        self.href = &#34;&#34;
+        # &lt;ul&gt;/&lt;ol&gt;-related properties:
+        self.indent = 0
+        self.line_height_stack = []
+        self.ol_type = {}  # when inside a &lt;ol&gt; tag, can be &#34;a&#34;, &#34;A&#34;, &#34;i&#34;, &#34;I&#34; or &#34;1&#34;
+        self.bullet = []
         # &lt;title&gt;-related properties:
         self.render_title_tag = render_title_tag
         self._in_title = False
@@ -355,7 +359,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
 
     def _new_paragraph(
         self,
-        align=None,
+        align: Optional[Union[float, Align]] = None,
         line_height=1.0,
         top_margin=0,
         bottom_margin=0,
@@ -365,7 +369,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
         # Note that currently top_margin is ignored if bullet is also provided,
         # due to the behaviour of TextRegion._render_column_lines()
         self._end_paragraph()
-        self.align = align or &#34;&#34;
+        self.align = align
         if isinstance(indent, Align):
             # Explicit alignment takes priority over alignment provided as TextStyle.l_margin:
             if not self.align:
@@ -386,7 +390,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
         self.follows_heading = False
 
     def _end_paragraph(self):
-        self.align = &#34;&#34;
+        self.align = None
         if not self._paragraph:
             return
         self._column.end_paragraph()
@@ -687,7 +691,6 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
                     # cf. https://github.com/py-pdf/fpdf2/pull/1217#discussion_r1666643777
                     self.follows_heading = True
                 self._new_paragraph(
-                    align=&#34;C&#34; if tag == &#34;center&#34; else None,
                     line_height=(
                         self.line_height_stack[-1] if self.line_height_stack else None
                     ),
@@ -697,9 +700,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
                 )
         if tag == &#34;ul&#34;:
             self.indent += 1
-            bullet_char = (
-                ul_prefix(attrs[&#34;type&#34;]) if &#34;type&#34; in attrs else self.ul_bullet_char
-            )
+            bullet_char = attrs.get(&#34;type&#34;, self.ul_bullet_char)
             self.bullet.append(bullet_char)
             line_height = css_style.get(&#34;line-height&#34;, attrs.get(&#34;line-height&#34;))
             # &#34;line-height&#34; attributes are not valid in HTML,
@@ -758,6 +759,8 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
             else:
                 # Allow &lt;li&gt; to be used outside of &lt;ul&gt; or &lt;ol&gt;.
                 bullet = self.ul_bullet_char
+            if not isinstance(bullet, int):
+                bullet = ul_prefix(bullet, self.pdf.is_ttf_font)
             if not isinstance(bullet, str):
                 bullet += 1
                 self.bullet[self.indent - 1] = bullet
@@ -880,8 +883,8 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
                 self.td_th[&#34;inserted&#34;] = True
                 return
             x = self.pdf.get_x()
-            if self.align and self.align[0].upper() == &#34;C&#34;:
-                x = Align.C
+            if self.align:
+                x = self.align
             self.pdf.image(
                 self.image_map(attrs[&#34;src&#34;]), x=x, w=width, h=height, link=self.href
             )
@@ -934,7 +937,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
                 self.font_emphasis = font_face.emphasis
                 self.font_color = font_face.color
             self._end_paragraph()
-            self.align = &#34;&#34;
+            self.align = None
         if tag in HEADING_TAGS:
             self.heading_level = None
             if self.style_stack:
@@ -980,7 +983,7 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
         if tag == &#34;table&#34;:
             self.table.render()
             self.table = None
-            self._ln(self.h)
+            self._ln()
         if tag == &#34;tr&#34;:
             self.tr = None
             self.table_row = None
@@ -1065,8 +1068,8 @@ cf. <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">https://
 <div class="desc"><p>Render basic HTML to FPDF</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>pdf</code></strong> :&ensp;<code>FPDF</code></dt>
-<dd>an instance of <code>fpdf.FPDF</code></dd>
+<dt><strong><code>pdf</code></strong> :&ensp;<code><a title="fpdf.fpdf.FPDF" href="fpdf.html#fpdf.fpdf.FPDF">FPDF</a></code></dt>
+<dd>an instance of <code>FPDF</code></dd>
 <dt><strong><code>image_map</code></strong> :&ensp;<code>function</code></dt>
 <dd>an optional one-argument function that map <code>&lt;img&gt;</code> "src" to new image URLs</dd>
 <dt><strong><code>li_tag_indent</code></strong> :&ensp;<code>int</code></dt>
@@ -1079,8 +1082,9 @@ numeric indentation of <code>&lt;dd&gt;</code> elements - Set <code>tag_styles</
 <dd>enable horizontal line separators in <code>&lt;table&gt;</code>. Defaults to <code>False</code>.</dd>
 <dt><strong><code>ul_bullet_char</code></strong> :&ensp;<code>str</code></dt>
 <dd>bullet character preceding <code>&lt;li&gt;</code> items in <code>&lt;ul&gt;</code> lists.
+You can also specify special bullet names like <code>"circle"</code> or <code>"disc"</code> (the default).
 Can also be configured using the HTML <code>type</code> attribute of <code>&lt;ul&gt;</code> tags.</dd>
-<dt><strong><code>li_prefix_color</code></strong> :&ensp;<code>tuple, str, <a title="fpdf.drawing.DeviceCMYK" href="drawing.html#fpdf.drawing.DeviceCMYK">DeviceCMYK</a>, <a title="fpdf.drawing.DeviceGray" href="drawing.html#fpdf.drawing.DeviceGray">DeviceGray</a>, <a title="fpdf.drawing.DeviceRGB" href="drawing.html#fpdf.drawing.DeviceRGB">DeviceRGB</a></code></dt>
+<dt><strong><code>li_prefix_color</code></strong> :&ensp;<code>tuple, str, fpdf.drawing.DeviceCMYK, fpdf.drawing.DeviceGray, fpdf.drawing.DeviceRGB</code></dt>
 <dd>color for bullets
 or numbers preceding <code>&lt;li&gt;</code> tags. This applies to both <code>&lt;ul&gt;</code> &amp; <code>&lt;ol&gt;</code> lists.</dd>
 <dt><strong><code>heading_sizes</code></strong> :&ensp;<code>dict</code></dt>
@@ -1126,7 +1130,7 @@ mapping of HTML tag names to numeric values representing their horizontal left i
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1212-L1213" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1221-L1222" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def error(self, message):
     raise RuntimeError(message)</code></pre>
@@ -1140,7 +1144,7 @@ mapping of HTML tag names to numeric values representing their horizontal left i
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1164-L1170" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1173-L1179" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def feed(self, data):
     super().feed(data)
@@ -1161,7 +1165,7 @@ as you want (may include '\n').</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L583-L667" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L593-L677" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def handle_data(self, data):
     if self._in_title:
@@ -1258,7 +1262,7 @@ as you want (may include '\n').</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1057-L1162" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1066-L1171" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def handle_endtag(self, tag):
     while (
@@ -1290,7 +1294,7 @@ as you want (may include '\n').</p></div>
             self.font_emphasis = font_face.emphasis
             self.font_color = font_face.color
         self._end_paragraph()
-        self.align = &#34;&#34;
+        self.align = None
     if tag in HEADING_TAGS:
         self.heading_level = None
         if self.style_stack:
@@ -1336,7 +1340,7 @@ as you want (may include '\n').</p></div>
     if tag == &#34;table&#34;:
         self.table.render()
         self.table = None
-        self._ln(self.h)
+        self._ln()
     if tag == &#34;tr&#34;:
         self.tr = None
         self.table_row = None
@@ -1376,7 +1380,7 @@ as you want (may include '\n').</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L682-L1055" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L692-L1064" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def handle_starttag(self, tag, attrs):
     self._pre_started = False
@@ -1536,7 +1540,6 @@ as you want (may include '\n').</p></div>
                 # cf. https://github.com/py-pdf/fpdf2/pull/1217#discussion_r1666643777
                 self.follows_heading = True
             self._new_paragraph(
-                align=&#34;C&#34; if tag == &#34;center&#34; else None,
                 line_height=(
                     self.line_height_stack[-1] if self.line_height_stack else None
                 ),
@@ -1546,9 +1549,7 @@ as you want (may include '\n').</p></div>
             )
     if tag == &#34;ul&#34;:
         self.indent += 1
-        bullet_char = (
-            ul_prefix(attrs[&#34;type&#34;]) if &#34;type&#34; in attrs else self.ul_bullet_char
-        )
+        bullet_char = attrs.get(&#34;type&#34;, self.ul_bullet_char)
         self.bullet.append(bullet_char)
         line_height = css_style.get(&#34;line-height&#34;, attrs.get(&#34;line-height&#34;))
         # &#34;line-height&#34; attributes are not valid in HTML,
@@ -1607,6 +1608,8 @@ as you want (may include '\n').</p></div>
         else:
             # Allow &lt;li&gt; to be used outside of &lt;ul&gt; or &lt;ol&gt;.
             bullet = self.ul_bullet_char
+        if not isinstance(bullet, int):
+            bullet = ul_prefix(bullet, self.pdf.is_ttf_font)
         if not isinstance(bullet, str):
             bullet += 1
             self.bullet[self.indent - 1] = bullet
@@ -1729,8 +1732,8 @@ as you want (may include '\n').</p></div>
             self.td_th[&#34;inserted&#34;] = True
             return
         x = self.pdf.get_x()
-        if self.align and self.align[0].upper() == &#34;C&#34;:
-            x = Align.C
+        if self.align:
+            x = self.align
         self.pdf.image(
             self.image_map(attrs[&#34;src&#34;]), x=x, w=width, h=height, link=self.href
         )
@@ -1762,7 +1765,7 @@ as you want (may include '\n').</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1172-L1192" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1181-L1201" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def put_link(self, text):
     &#34;Insert a hyperlink&#34;
@@ -1795,7 +1798,7 @@ as you want (may include '\n').</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1195-L1209" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1204-L1218" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">def render_toc(self, pdf, outline):
     &#34;This method can be overridden by subclasses to customize the Table of Contents style.&#34;
@@ -1825,7 +1828,7 @@ as you want (may include '\n').</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
-<a href="https://github.com/py-pdf/fpdf2/blob/ca728f7cc6afd7ab35a7da6b6fcdd7a022c2ca92/fpdf/html.py#L1259-L1274" class="git-link" target="_blank">Browse git</a>
+<a href="https://github.com/py-pdf/fpdf2/blob/964a4a9b69afd516188cf05884e8f290ef14a27f/fpdf/html.py#L1268-L1283" class="git-link" target="_blank">Browse git</a>
 </summary>
 <pre><code class="python">class HTMLMixin:
     &#34;&#34;&#34;
